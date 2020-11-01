@@ -1,7 +1,10 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { shallow } from 'enzyme'
 import App from './index'
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />)
+describe('Render App', () => {
+  it('should render correctly', () => {
+    const Component = shallow(<App />)
+    expect(Component).toMatchSnapshot()
+  })
 })

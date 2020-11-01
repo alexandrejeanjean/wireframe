@@ -5,6 +5,10 @@
   "dependencies": {
     "@emotion/core": "^10.0.35",
     "@emotion/styled": "^10.0.27",
+    "@fortawesome/fontawesome-svg-core": "^1.2.32",
+    "@fortawesome/free-brands-svg-icons": "^5.15.1",
+    "@fortawesome/free-solid-svg-icons": "^5.15.1",
+    "@fortawesome/react-fontawesome": "^0.1.12",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -22,7 +26,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "yarn jest",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "storybook": "start-storybook -p 6006 -s public --no-dll",
+    "build-storybook": "build-storybook -s public --no-dll"
   },
   "eslintConfig": {
     "extends": [
@@ -42,10 +48,17 @@
       "last 1 safari version"
     ]
   },
-
   "devDependencies": {
+    "@babel/core": "^7.12.3",
+    "@storybook/addon-actions": "^6.0.28",
+    "@storybook/addon-essentials": "^6.0.28",
+    "@storybook/addon-links": "^6.0.28",
+    "@storybook/node-logger": "^6.0.28",
+    "@storybook/preset-create-react-app": "^3.1.4",
+    "@storybook/react": "^6.0.28",
     "@types/enzyme": "^3.10.5",
     "@types/enzyme-adapter-react-16": "^1.0.6",
+    "babel-loader": "^8.1.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.4",
     "enzyme-to-json": "^3.5.0",
@@ -60,16 +73,17 @@
     "husky": "^4.2.5",
     "jest-css-modules": "^2.1.0",
     "prettier": "^1.19.1",
+    "react-is": "^17.0.1",
     "ts-jest": "^26.3.0"
   },
-
   "husky": {
     "hooks": {
       "pre-commit": "git-precommit-checks && yarn test"
     }
   },
   "git-precommit-checks": {
-    "rules": [{
+    "rules": [
+      {
         "filter": "\\.js$",
         "nonBlocking": "true",
         "message": "You’ve got leftover `console.log`",
