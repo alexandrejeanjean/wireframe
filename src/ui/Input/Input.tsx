@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import styled from '@emotion/styled'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheck } from '@fortawesome/free-solid-svg-icons'
 
 import Theme from '../../Theme/config'
 
@@ -29,9 +31,11 @@ const Input = (props: IProps) => {
           {...props}
         />
         <CheckboxStyled checked={isChecked} onChange={_handleChange}>
-          <Icon viewBox='0 0 24 24'>
-            <polyline points='20 6 9 17 4 12' />
-          </Icon>
+          <FontAwesomeIcon
+            icon={faCheck}
+            color={Theme.default.color}
+            className='fa-xs'
+          />
         </CheckboxStyled>
       </CheckboxContainer>
     )
@@ -102,14 +106,6 @@ const CheckboxContainer = styled('div')`
   display: inline-block;
   vertical-align: middle;
   margin-right: 1rem;
-  margin-bottom: -1.4rem;
-`
-
-const Icon = styled('svg')`
-  fill: none;
-  stroke: black;
-  stroke-width: 2px;
-  margin-bottom: 1rem;
 `
 
 type CheckboxStyledProps = {
@@ -117,20 +113,18 @@ type CheckboxStyledProps = {
 }
 
 const CheckboxStyled = styled('div')`
-  display: inline-block;
+  display: flex;
   width: 15px;
   height: 15px;
-  background: ${(props: CheckboxStyledProps) =>
-    props.checked
-      ? 'salmon 0% 0% no-repeat padding-box'
-      : '#fff 0% 0% no-repeat padding-box'};
+  background: #fff 0% 0% no-repeat padding-box;
 
   border: 2px solid #d9d9d9;
   border-radius: 3px;
   transition: all 150ms;
 
   & > svg {
-    visibility: ${(props) => (props.checked ? 'visible' : 'hidden')};
+    visibility: ${(props: CheckboxStyledProps) =>
+      props.checked ? 'visible' : 'hidden'};
   }
 `
 
