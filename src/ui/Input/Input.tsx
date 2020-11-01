@@ -1,5 +1,4 @@
-/* @flow */
-import React from 'react'
+import React, { useState } from 'react'
 import styled from '@emotion/styled'
 
 import Theme from '../../Theme/config'
@@ -9,11 +8,11 @@ export interface IProps {
   type: string
   name: string
   handleChange: Function
-  isChecked?: boolean
 }
 
 const Input = (props: IProps) => {
-  const { placeholder, type, name, handleChange, isChecked } = props
+  const [isChecked, setIsChecked] = useState(false)
+  const { placeholder, type, name, handleChange } = props
 
   const _handleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     handleChange && handleChange(event)
@@ -23,13 +22,18 @@ const Input = (props: IProps) => {
 
   if (type === 'checkbox') {
     return (
-      <CheckboxStyled
-        type={type}
-        name={name}
-        placeholder={placeholder && placeholder}
-        onChange={_handleChange}
-        checked={isChecked}
-      />
+      <CheckboxContainer>
+        <HiddenCheckbox
+          checked={isChecked}
+          onChange={() => setIsChecked(!isChecked)}
+          {...props}
+        />
+        <CheckboxStyled checked={isChecked} onChange={_handleChange}>
+          <Icon viewBox='0 0 24 24'>
+            <polyline points='20 6 9 17 4 12' />
+          </Icon>
+        </CheckboxStyled>
+      </CheckboxContainer>
     )
   }
 
@@ -81,12 +85,53 @@ const SelectStyled = styled('select')`
   border: none;
 `
 
-const CheckboxStyled = styled('input')`
+const HiddenCheckbox = styled('input')`
+  border: 0;
+  clip: rect(0 0 0 0);
+  clippath: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+`
+
+const CheckboxContainer = styled('div')`
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 1rem;
+  margin-bottom: -1.4rem;
+`
+
+const Icon = styled('svg')`
+  fill: none;
+  stroke: black;
+  stroke-width: 2px;
+  margin-bottom: 1rem;
+`
+
+type CheckboxStyledProps = {
+  checked?: boolean
+}
+
+const CheckboxStyled = styled('div')`
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  background: ${(props: CheckboxStyledProps) =>
+    props.checked
+      ? 'salmon 0% 0% no-repeat padding-box'
+      : '#fff 0% 0% no-repeat padding-box'};
+
+  border: 2px solid #d9d9d9;
   border-radius: 3px;
-  margin-left: 16px;
-  font-family: ${Theme.default.fontFamily};
-  font-size: ${Theme.default.fontSize.small};
-  color: ${Theme.default.color};
+  transition: all 150ms;
+
+  & > svg {
+    visibility: ${(props) => (props.checked ? 'visible' : 'hidden')};
+  }
 `
 
 export default Input

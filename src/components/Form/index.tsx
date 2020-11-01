@@ -130,7 +130,7 @@ const Form = () => {
           ))}
         </ColumnStyled>
       </RowStyled>
-      <RowStyled direction='column'>
+      <RowStyled direction='column' width='570'>
         {checkBox.map((input) => (
           <Input
             key={input.labelText}
@@ -158,11 +158,11 @@ const FormStyled = styled('form')`
 
 type RowProps = {
   direction?: string
+  width?: string
 }
 
 const RowStyled = styled('div')`
-  max-width: 600px;
-  width: 100%;
+  width: ${(props: RowProps) => (props.width ? props.width : 600)}px;
   display: flex;
   justify-content: center;
   flex-direction: ${(props: RowProps) =>

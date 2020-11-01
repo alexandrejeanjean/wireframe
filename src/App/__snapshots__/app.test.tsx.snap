@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render App should render correctly 1`] = `
+<Styled(div)
+  className="App"
+>
+  <Theme>
+    <Main>
+      <FormScene />
+    </Main>
+  </Theme>
+</Styled(div)>
+`;
